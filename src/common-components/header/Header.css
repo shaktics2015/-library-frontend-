@@ -7,12 +7,4 @@
 	text-align: center;
 	color: white !important;
 	padding: 8px 0px 8px 0;
-}
-
-@media screen and (max-width: 992px) {
-	.notification-icon-container {
-		padding: 8px 0px 8px 0;
-		text-align: center;
-		margin: 0 auto;
-	}
-}
+} 
