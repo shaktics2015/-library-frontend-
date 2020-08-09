@@ -1,5 +1,5 @@
 # Library Management GUI(ReactJs)
-### Open in two different browser test concurrency
+### Open in two different browser to test concurrency
  
 ## Install required dependencies
 
