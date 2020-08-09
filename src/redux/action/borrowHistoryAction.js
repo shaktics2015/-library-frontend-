@@ -22,7 +22,7 @@ export const getBorrowedList = (userToken) => (dispatch) => {
       });
       return error;
     });
-}; 
+};
 
 export const BORROW_LIST_BEGIN = "BORROW_LIST_BEGIN";
 export const BORROW_LIST_SUCCESS = "BORROW_LIST_SUCCESS";
@@ -52,9 +52,9 @@ export const removeBorrowedBook = (userToken, data) => (dispatch) => {
       });
       return error;
     });
-}; 
+};
 
-export const addToBorrowedList = ( data) => (dispatch) => {
+export const addToBorrowedList = (data) => (dispatch) => {
   dispatch({
     type: UPDATE_BORROW_LIST_BEGIN,
   });
@@ -77,7 +77,7 @@ export const addToBorrowedList = ( data) => (dispatch) => {
       });
       return error;
     });
-}; 
+};
 
 
 export const UPDATE_BORROW_LIST_BEGIN = "UPDATE_BORROW_LIST_BEGIN";

@@ -8,7 +8,7 @@ const initialState = {
   loading: false,
   data: null,
   error: null,
-}; 
+};
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_BOOKS_BEGIN:
