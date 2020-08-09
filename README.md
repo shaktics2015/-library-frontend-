@@ -23,3 +23,12 @@
 
 ### Fully utilized Library
 ![Alt text](https://github.com/shaktics2015/library-frontend/blob/master/screenshots/3.png "Fully utilized Library")
+
+### ERROR: Duplicate Item
+![Alt text](https://github.com/shaktics2015/library-frontend/blob/master/screenshots/4.png "Duplicate Item")
+
+### ERROR: Maximum books taken
+![Alt text](https://github.com/shaktics2015/library-frontend/blob/master/screenshots/5.png "Maximum books taken")
+
+### ERROR: Out of stock
+![Alt text](https://github.com/shaktics2015/library-frontend/blob/master/screenshots/6.png "Out of stock")
