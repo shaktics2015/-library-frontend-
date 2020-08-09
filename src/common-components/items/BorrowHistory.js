@@ -1,5 +1,6 @@
 import React from "react";
 import { ListGroup, Row, Col } from "react-bootstrap";
+import './Item.css';
 
 const BorrowHistory = ({ borrowHistory, removedFromBorrowedList }) => {
   return (
@@ -8,7 +9,7 @@ const BorrowHistory = ({ borrowHistory, removedFromBorrowedList }) => {
       <Row>
         <Col> <strong>{borrowHistory.name}</strong></Col>
         <Col> Author: <small>{borrowHistory.author}</small> ({borrowHistory.copies})</Col>
-        <Col onClick={e => removedFromBorrowedList('BORROWED_ITEM', borrowHistory)}> removedFromBorrowedList</Col>
+        <Col className="remove" onClick={e => removedFromBorrowedList('BORROWED_ITEM', borrowHistory)}> Remove</Col>
       </Row>
       </ListGroup.Item>
     </ListGroup>

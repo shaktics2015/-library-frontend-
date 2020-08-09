@@ -26,19 +26,16 @@ class App extends Component {
     } else if(source==='BORROWED_ITEM'){ 
       this.props.removeBorrowedBook(userToken, data); 
     }
-    this.loadInitialData();
+    this.props.getBooks();
+    this.setState({});
    }
- 
   
-
   componentDidMount() {
-    this.loadInitialData()
+    this.props.getBooks();
+    this.props.getBorrowedList(userToken);
   } 
 
-  loadInitialData(){ 
-    this.props.getBooks();
-    this.props.getBorrowedList(userToken); 
-    this.setState({});
+  loadInitialData(){  
   }
 
 
@@ -46,13 +43,16 @@ class App extends Component {
     let that = this;
     const { books , borrowHistory, remove, add} = that.props;
     console.log("remove", remove, add);
+    var borrowHistoryData= (borrowHistory.data && borrowHistory.data.books)
+    ?  borrowHistory.data.books: (
+      (remove.data && remove.data.books)? remove.data.books: ( add.data && add.data.books? add.data.books: null));
     return (
       <div>
         <Header />
         <Container className="app-body">
          <Row>
          {books.data && <Col> <List addRemoveBook={that.addRemoveBook} items={books.data} isBooks={true} />  </Col>}
-         {borrowHistory.data && borrowHistory.data.books && borrowHistory.data.books.length>0 &&   <Col> <List addRemoveBook={that.addRemoveBook} items={borrowHistory.data.books} isBooks={false} />  </Col>}
+         {borrowHistoryData && borrowHistoryData.length>0 &&   <Col> <List addRemoveBook={that.addRemoveBook} items={borrowHistoryData} isBooks={false} />  </Col>}
           </Row>
         </Container>
         <pre>{JSON.stringify(borrowHistory, null, 2)}</pre> 
