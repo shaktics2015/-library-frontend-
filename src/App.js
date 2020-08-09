@@ -14,7 +14,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-    };
+      borrowHistoryData: []
+    }; 
+
     this.addRemoveBook= this.addRemoveBook.bind(this);
     this.loadInitialData= this.loadInitialData.bind(this);
  
@@ -25,37 +27,47 @@ class App extends Component {
       this.props.addToBorrowedList({userToken: userToken, bookId: data.id}); 
     } else if(source==='BORROWED_ITEM'){ 
       this.props.removeBorrowedBook(userToken, data); 
-    }
-    this.props.getBooks();
-    this.setState({});
+    } 
+    this.loadInitialData();
    }
   
   componentDidMount() {
-    this.props.getBooks();
-    this.props.getBorrowedList(userToken);
+    this.loadInitialData();
   } 
 
   loadInitialData(){  
+    setTimeout(
+      function() {
+        this.props.getBooks();
+        this.props.getBorrowedList(userToken);
+      }
+      .bind(this),
+      500
+  );
   }
 
 
   render() {
     let that = this;
-    const { books , borrowHistory, remove, add} = that.props;
-    console.log("remove", remove, add);
-    var borrowHistoryData= (borrowHistory.data && borrowHistory.data.books)
-    ?  borrowHistory.data.books: (
-      (remove.data && remove.data.books)? remove.data.books: ( add.data && add.data.books? add.data.books: null));
+    const { books , borrowHistory, update } = that.props;
+    console.log("books", books);
+    console.log("update", update);
+    if(borrowHistory.data && !borrowHistory.error) 
+      var borrowHistoryData= borrowHistory.data.books
+        
     return (
       <div>
         <Header />
         <Container className="app-body">
-         <Row>
-         {books.data && <Col> <List addRemoveBook={that.addRemoveBook} items={books.data} isBooks={true} />  </Col>}
+         <Row> 
+
+         {(books && books.data && books.data.length>0) ? <Col> <List addRemoveBook={that.addRemoveBook} items={books.data} isBooks={true} />  </Col>:
+         <Col><h1 className="empty">Empty Library</h1></Col> }
          {borrowHistoryData && borrowHistoryData.length>0 &&   <Col> <List addRemoveBook={that.addRemoveBook} items={borrowHistoryData} isBooks={false} />  </Col>}
           </Row>
         </Container>
-        <pre>{JSON.stringify(borrowHistory, null, 2)}</pre> 
+        {update.error && update.error.errorMessage && <div className="action-error">{update.error.errorMessage}</div> }
+        {/* <pre>{JSON.stringify(books.data, null, 2)}</pre>  */}
 
       </div>
     );
@@ -64,9 +76,8 @@ class App extends Component {
 
 const mapStoreToProps = (state) => ({
   books: state.books,
-  borrowHistory: state.borrowHistory,
-  add: state.add,
-  remove: state.remove
+  borrowHistory: state.borrowHistory, 
+  update: state.update
 });
 
 const mapDispatchToProps = {

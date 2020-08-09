@@ -1,7 +1,7 @@
 import {
-    GET_BORROWED_LIST_BEGIN,
-    GET_BORROWED_LIST_SUCCESS,
-    GET_BORROWED_LIST_FAIL,
+    BORROW_LIST_BEGIN,
+    BORROW_LIST_SUCCESS,
+    BORROW_LIST_FAIL,
   } from "../action/borrowHistoryAction";
   
   const initialState = {
@@ -11,17 +11,17 @@ import {
   }; 
   export default (state = initialState, action) => {
     switch (action.type) {
-      case GET_BORROWED_LIST_BEGIN:
+      case BORROW_LIST_BEGIN:
         return {
           loading: true,
           error: null,
         };
-      case GET_BORROWED_LIST_SUCCESS:
+      case BORROW_LIST_SUCCESS:
         return {
           loading: false,
           data: action.payload.data,
         };
-      case GET_BORROWED_LIST_FAIL:
+      case BORROW_LIST_FAIL:
         return {
           loading: false,
           error: action.payload.error.response.data,

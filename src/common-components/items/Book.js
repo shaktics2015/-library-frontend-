@@ -7,8 +7,8 @@ const Book = ({ book , addToBorrowedList}) => {
     <ListGroup>
       <ListGroup.Item> 
       <Row>
-        <Col> <strong>{book.name}</strong> <small>({book.copies})</small></Col>
-        <Col> Author: <small>{book.author}</small></Col>
+        <Col> <strong>{book.name}</strong> <small>(copies: {book.copies})</small></Col>
+        <Col><small> Author: <b>{book.author}</b></small></Col>
         {book.copies>0 && <Col className="add" onClick={e => addToBorrowedList('BOOK', book)}> Add</Col>}
       </Row>
       </ListGroup.Item>

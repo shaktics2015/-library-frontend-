@@ -3,21 +3,17 @@
   text-align: center;
   margin: 50px auto;
 }  
-.form-container{
-  width: 40%;
-    margin: auto;
+.action-error{
+  text-align: center;
+  background-color: red;
+  color: white;
 }
-.form-group{
-  text-align: left;
+.empty{
+  text-align: center;
 }
-
-
 @media screen and (max-width: 992px) {
   .app-body {  
     width: 95%; 
-  }  
-  .form-container{ 
-    width: 85%; 
-  }
+  }   
   
 }
