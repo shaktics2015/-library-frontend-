@@ -3,10 +3,14 @@
   text-align: center;
   margin: 50px auto;
 }  
-.action-error{
-  text-align: center;
+.action-error{ 
+  margin-top: 20px;
   background-color: red;
   color: white;
+  padding: 10px;
+}
+.action-error span{
+  margin: 0 auto;
 }
 .empty{
   text-align: center;

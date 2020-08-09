@@ -8,7 +8,7 @@ import { getBorrowedList, removeBorrowedBook, addToBorrowedList } from "./redux/
 import List from './common-components/items/List'
 import { Container, Row, Col } from "react-bootstrap";
 
-const userToken = 'string';
+const userToken = navigator.userAgent.toLowerCase() || "NO_USERAGENT";
 
 class App extends Component {
   constructor(props) {
@@ -23,11 +23,16 @@ class App extends Component {
 
   addRemoveBook(source, data) {
     if (source === 'BOOK') {
-      this.props.addToBorrowedList({ userToken: userToken, bookId: data.id });
+      this.props.addToBorrowedList({ userToken: this.generateHashCode(), bookId: data.id });
     } else if (source === 'BORROWED_ITEM') {
-      this.props.removeBorrowedBook(userToken, data);
+      this.props.removeBorrowedBook(this.generateHashCode(), data);
     }
     this.loadInitialData();
+  }
+
+  generateHashCode() {
+    return userToken.split('').reduce((prevHash, currVal) =>
+      (((prevHash << 5) - prevHash) + currVal.charCodeAt(0))|0, 0);
   }
 
   componentDidMount() {
@@ -38,7 +43,7 @@ class App extends Component {
     setTimeout(
       function () {
         this.props.getBooks();
-        this.props.getBorrowedList(userToken);
+        this.props.getBorrowedList(this.generateHashCode());
       }
         .bind(this),
       500
@@ -47,25 +52,21 @@ class App extends Component {
 
   render() {
     let that = this;
-    const { books, borrowHistory, update } = that.props;
-    console.log("books", books);
-    console.log("update", update);
+    const { books, borrowHistory, update } = that.props; 
     if (borrowHistory.data && !borrowHistory.error)
       var borrowHistoryData = borrowHistory.data.books
 
     return (
       <div>
         <Header />
-        <Container className="app-body">
+        <Container className="app-body" fluid>
           <Row>
             {(books && books.data && books.data.length > 0) ? <Col> <List addRemoveBook={that.addRemoveBook} items={books.data} isBooks={true} />  </Col> :
               <Col><h1 className="empty">Empty Library</h1></Col>}
             {borrowHistoryData && borrowHistoryData.length > 0 && <Col> <List addRemoveBook={that.addRemoveBook} items={borrowHistoryData} isBooks={false} />  </Col>}
           </Row>
+          {update.error && update.error.errorMessage && <Row className="action-error"><span>{update.error.errorMessage}</span></Row>}
         </Container>
-        {update.error && update.error.errorMessage && <div className="action-error">{update.error.errorMessage}</div>}
-        {/* <pre>{JSON.stringify(books.data, null, 2)}</pre>  */}
-
       </div>
     );
   }
