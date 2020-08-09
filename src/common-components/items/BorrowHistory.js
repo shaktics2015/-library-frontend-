@@ -9,7 +9,7 @@ const BorrowHistory = ({ borrowHistory, removedFromBorrowedList }) => {
       <Row>
         <Col> <strong>{borrowHistory.name}</strong></Col>
         <Col><small> Author: <b>{borrowHistory.author}</b></small></Col>
-        <Col className="remove" onClick={e => removedFromBorrowedList('BORROWED_ITEM', borrowHistory)}> Remove</Col>
+        <Col className="remove" onClick={e => removedFromBorrowedList('BORROWED_ITEM', borrowHistory)}> Return</Col>
       </Row>
       </ListGroup.Item>
     </ListGroup>
